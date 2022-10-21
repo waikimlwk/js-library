@@ -43,3 +43,18 @@
             });
         });
     }
+
+    function override_alert() {
+
+        var alrtScope;
+        if (typeof unsafeWindow === "undefined") {
+            alrtScope = window;
+        } else {
+            alrtScope = unsafeWindow;
+        }
+
+        alrtScope.alert = function (str) {
+            console.log ("Greasemonkey intercepted alert: ", str);
+        };
+
+    }
