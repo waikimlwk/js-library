@@ -77,13 +77,13 @@ function get_angluarjs_scope(ctrlName) {
             let sel = 'div[ng-controller="' + ctrlName + '"]';
             let ctrl = angular.element(sel).scope();
 
-            if (ctrl) {
-                return resolve(ctrl);
+            if (angular.element(sel).scope()) {
+                return resolve(angular.element(sel).scope());
             }
 
             const observer = new MutationObserver(mutations => {
-                if (ctrl) {
-                    resolve(ctrl);
+                if (angular.element(sel).scope()) {
+                    resolve(angular.element(sel).scope());
                     observer.disconnect();
                 }
             });
