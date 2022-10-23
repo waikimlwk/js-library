@@ -71,6 +71,33 @@ function get_angluarjs_scope(ctrlName) {
         });
     }
 
+    function waitForElm_angularjs(ctrlName) {
+        return new Promise(resolve => {
+            let sel = 'div[ng-controller="' + ctrlName + '"]';
+            let ctrl = angular.element(sel).scope();
+
+            if (ctrl) {
+                return resolve(ctrl);
+            }
+
+            const observer = new MutationObserver(mutations => {
+                if (ctrl) {
+                    resolve(ctrl);
+                    observer.disconnect();
+                }
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+
+
+
+
     function override_alert() {
 
         var alrtScope;
