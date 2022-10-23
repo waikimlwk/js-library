@@ -114,6 +114,14 @@ function get_angluarjs_scope(ctrlName) {
 
     }
 
+function send_message(message) {
+    try {
+      send_message_localhost(message);
+    } catch (error) {
+      send_message_server(message);
+    }
+
+}
 
 
 function send_message_localhost(message) {
