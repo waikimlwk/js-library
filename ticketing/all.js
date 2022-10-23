@@ -126,7 +126,7 @@ function send_message(message) {
 
 function send_message_localhost(message) {
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    var theUrl = "http://localhost:8520/sendmessage/";
+    var theUrl = "http://127.0.0.1:8520/sendmessage/";
     xmlhttp.open("POST", theUrl);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlhttp.send(JSON.stringify({"text": message}));
