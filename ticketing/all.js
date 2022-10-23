@@ -52,13 +52,14 @@ function get_angluarjs_scope(ctrlName) {
     // todo: xpath not work
     function waitForElm_xpath(xpath) {
         return new Promise(resolve => {
-            if (document.evaluate (xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)) {
-                return resolve(document.evaluate (xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null));
+            let element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+            if (element) {
+                return resolve(element);
             }
 
             const observer = new MutationObserver(mutations => {
-                if (document.evaluate (xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)) {
-                    resolve(document.evaluate (xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null));
+                if (element) {
+                    resolve(element);
                     observer.disconnect();
                 }
             });
