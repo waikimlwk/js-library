@@ -72,6 +72,7 @@ function get_angluarjs_scope(ctrlName) {
     }
 
     function waitForElm_angularjs(ctrlName) {
+        console.log('waitForElm_angularjs');
         return new Promise(resolve => {
             let sel = 'div[ng-controller="' + ctrlName + '"]';
             let ctrl = angular.element(sel).scope();
