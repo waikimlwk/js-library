@@ -92,7 +92,7 @@ function send_message_localhost(message) {
     var theUrl = "http://localhost:8520/sendmessage/";
     xmlhttp.open("POST", theUrl);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlhttp.send(JSON.stringify({"text": "message"}));
+    xmlhttp.send(JSON.stringify({"text": message}));
 }
 
 
@@ -101,5 +101,5 @@ function send_message_server(message) {
     var theUrl = "https://ticket.willtechhk.com/sendmessage/";
     xmlhttp.open("POST", theUrl);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlhttp.send(JSON.stringify({"text": "message"}));
+    xmlhttp.send(JSON.stringify({"text": message}));
 }
