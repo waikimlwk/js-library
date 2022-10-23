@@ -140,3 +140,12 @@ function send_message_server(message) {
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlhttp.send(JSON.stringify({"text": message}));
 }
+
+
+function randomIntFromInterval(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function int_to_char(int_value) {
+    return String.fromCharCode(int_value);
+}
