@@ -11,6 +11,21 @@
     }
 
 
+function http_post_json(url, json_object) {
+ var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+var theUrl = url;
+xmlhttp.open("POST", theUrl);
+xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xmlhttp.send(JSON.stringify(json_object));   
+        var resposeText = "";
+        if (request.status === 200) {
+            resposeText = request.responseText;
+        }
+        //return JSON.parse(resposeText);
+    return resposeText;
+}
+
+
 function get_element_by_xpath(xpath) {
   let result_element = document.evaluate (xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   return result_element;
