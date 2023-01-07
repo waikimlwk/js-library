@@ -12,11 +12,11 @@
 
 
 function http_post_json(url, json_object) {
- var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+ var request = new XMLHttpRequest();   // new HttpRequest instance 
 var theUrl = url;
-xmlhttp.open("POST", theUrl);
-xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-xmlhttp.send(JSON.stringify(json_object));   
+request.open("POST", theUrl);
+request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+request.send(JSON.stringify(json_object));   
         var resposeText = "";
         if (request.status === 200) {
             resposeText = request.responseText;
