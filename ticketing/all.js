@@ -220,3 +220,30 @@ function listCookies () {
 }
 
 
+function get_config(sitename) {
+        function addSeconds(numOfSeconds, date = new Date()) {
+            date.setSeconds(date.getSeconds() + numOfSeconds);
+            return date;
+        }
+
+        let sitename_config = JSON.parse(localStorage.getItem('{sitename}_config'.replaceAll('{sitename}',sitename) ));
+        let sitename_config_expired_time = parseInt(localStorage.getItem('{sitename}_config_expired_time'.replaceAll('{sitename}',sitename) ));
+        let current_timestamp = (new Date()).getTime();
+
+        if ( (sitename_config != null) &&
+            (sitename_config_expired_time != null) &&
+            (current_timestamp <= sitename_config_expired_time) )
+        {
+            console.log('Use cache Config');
+            console.log(sitename_config);
+        } else {
+            console.log('Get New Config');
+            sitename_config = http_get_json('https://ticket.willtechhk.com/{sitename}_config/'.replaceAll('{sitename}',sitename));
+            let new_sitename_config_expired_time = addSeconds(10, new Date()).getTime();
+            localStorage.setItem('{sitename}_config'.replaceAll('{sitename}',sitename), JSON.stringify(sitename_config));
+            localStorage.setItem('{sitename}_config_expired_time'.replaceAll('{sitename}',sitename), new_sitename_config_expired_time.toString());
+        }
+        return sitename_config;
+}
+
+
