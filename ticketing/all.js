@@ -64,7 +64,7 @@ function get_angluarjs_scope(ctrlName) {
         });
     }
 
-    async function waitForXpathNode(xpath) {
+    function waitForXpathNode(xpath) {
         while (true) {
             let element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
             if (element) {
