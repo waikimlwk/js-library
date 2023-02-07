@@ -65,25 +65,14 @@ function get_angluarjs_scope(ctrlName) {
     }
 
     // todo: xpath not work
-    function waitForElm_xpath(xpath) {
-        return new Promise(resolve => {
+    async function waitForXpathNode(xpath) {
+        while (true) {
             let element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
             if (element) {
-                return resolve(element);
+                return element;
             }
-
-            const observer = new MutationObserver(mutations => {
-                if (element) {
-                    resolve(element);
-                    observer.disconnect();
-                }
-            });
-
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-        });
+            await new Promise(resolve => setTimeout(resolve, 10));
+        }
     }
 
     function waitForElm_angularjs(ctrlName) {
