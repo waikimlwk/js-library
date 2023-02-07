@@ -64,7 +64,6 @@ function get_angluarjs_scope(ctrlName) {
         });
     }
 
-    // todo: xpath not work
     async function waitForXpathNode(xpath) {
         while (true) {
             let element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
