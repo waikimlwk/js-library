@@ -227,7 +227,7 @@ function get_config(sitename) {
         } else {
             console.log('Get New Config');
             sitename_config = http_get_json('https://ticket.willtechhk.com/{sitename}_config/'.replaceAll('{sitename}',sitename));
-            let new_sitename_config_expired_time = addSeconds(10, new Date()).getTime();
+            let new_sitename_config_expired_time = addSeconds(5, new Date()).getTime();
             localStorage.setItem('{sitename}_config'.replaceAll('{sitename}',sitename), JSON.stringify(sitename_config));
             localStorage.setItem('{sitename}_config_expired_time'.replaceAll('{sitename}',sitename), new_sitename_config_expired_time.toString());
         }
