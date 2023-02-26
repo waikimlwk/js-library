@@ -208,7 +208,7 @@ function listCookies () {
 }
 
 
-function get_config(sitename) {
+function get_config(sitename, allow_cache = true) {
         function addSeconds(numOfSeconds, date = new Date()) {
             date.setSeconds(date.getSeconds() + numOfSeconds);
             return date;
@@ -220,7 +220,8 @@ function get_config(sitename) {
 
         if ( (sitename_config != null) &&
             (sitename_config_expired_time != null) &&
-            (current_timestamp <= sitename_config_expired_time) )
+            (current_timestamp <= sitename_config_expired_time) && 
+            (allow_cache == true)  )
         {
             console.log('Use cache Config');
             console.log(sitename_config);
