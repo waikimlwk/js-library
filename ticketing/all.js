@@ -261,7 +261,7 @@ function playSound({ array, sampleRate }) {
 
 function playSineWave440hz() {
     const sampleRate = 44100;
-    const duration = 2;
+    const duration = 3;
 
     // create a typed array of size 44100 float numbers
     const sineWaveArray = new Float32Array(sampleRate * duration);
