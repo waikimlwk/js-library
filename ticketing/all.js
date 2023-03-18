@@ -278,7 +278,7 @@ function playSineWave440hz() {
 
 
 function load_or_fetch_script_and_execute(script_url, expirationTime) {
-  return new Promise(async (resolve) => {
+  return new Promise((resolve) => {
     const script_name = script_url.substring(script_url.lastIndexOf('/') + 1);
     const script_name_key = script_name + '-name';
     const script_savetime_key = script_name + '-saved';
@@ -305,6 +305,7 @@ function load_or_fetch_script_and_execute(script_url, expirationTime) {
     }
   });
 }
+
 
 function executeJsCode(jsCode, resolve) {
   const scriptElement = document.createElement('script');
