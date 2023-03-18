@@ -277,35 +277,42 @@ function playSineWave440hz() {
 }
 
 
-    function load_or_fetch_script_and_execute(script_url, expirationTime) {
-        const script_name = script_url.substring(script_url.lastIndexOf('/') + 1)
-        const script_name_key = script_name + '-name';
-        const script_savetime_key = script_name + '-saved';
+function load_or_fetch_script_and_execute(script_url, expirationTime) {
+  const script_name = script_url.substring(script_url.lastIndexOf('/') + 1);
+  const script_name_key = script_name + '-name';
+  const script_savetime_key = script_name + '-saved';
 
-        const savedJsCode = localStorage.getItem(script_name_key);
-        const savedTimestamp = localStorage.getItem(script_savetime_key);
+  const savedJsCode = localStorage.getItem(script_name_key);
+  const savedTimestamp = localStorage.getItem(script_savetime_key);
 
-        const currentTime = Date.now();
+  const currentTime = Date.now();
 
-        if (savedJsCode && savedTimestamp && currentTime - savedTimestamp < expirationTime) {
-            const scriptElement = document.createElement('script');
-            scriptElement.textContent = savedJsCode;
-            document.body.appendChild(scriptElement);
+  if (savedJsCode && savedTimestamp && currentTime - savedTimestamp < expirationTime) {
+    executeJsCode(savedJsCode);
+  } else {
+    GM_xmlhttpRequest({
+      method: 'GET',
+      url: script_url,
+      onload: function (response) {
+        const newScriptContent = response.responseText;
+        localStorage.setItem(script_name_key, newScriptContent);
+        localStorage.setItem(script_savetime_key, currentTime);
 
-        } else {
-            GM_xmlhttpRequest({
-                method: 'GET',
-                url: script_url,
-                onload: function(response) {
-                    const newScriptContent = response.responseText;
-                    localStorage.setItem(script_name_key, newScriptContent);
-                    localStorage.setItem(script_savetime_key, currentTime);
+        executeJsCode(newScriptContent);
+      },
+    });
+  }
+}
 
-                    const scriptElement = document.createElement('script');
-                    scriptElement.textContent = newScriptContent;
-                    document.body.appendChild(scriptElement);
-                }
-            });
-        }
+function executeJsCode(jsCode) {
+  const scriptElement = document.createElement('script');
+  const blob = new Blob([jsCode], { type: 'text/javascript' });
+  const scriptURL = URL.createObjectURL(blob);
 
-    }
+  scriptElement.src = scriptURL;
+  scriptElement.onload = function () {
+    URL.revokeObjectURL(scriptURL); // Clean up the created URL after the script is loaded
+  };
+
+  document.body.appendChild(scriptElement);
+}
