@@ -25,7 +25,7 @@ request.send(JSON.stringify(json_object));
     return resposeText;
 }
 
-function get_nodes_by_xpath(xpath) {
+function get_elements_by_xpath(xpath) {
     let result = [];
     let nodesSnapshot = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null );
     for ( let i=0 ; i < nodesSnapshot.snapshotLength; i++ ){
