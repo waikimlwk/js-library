@@ -11,19 +11,26 @@
     }
 
 
+
 function http_post_json(url, json_object) {
- var request = new XMLHttpRequest();   // new HttpRequest instance 
-var theUrl = url;
-request.open("POST", theUrl);
-request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-request.send(JSON.stringify(json_object));   
-        var resposeText = "";
-        if (request.status === 200) {
-            resposeText = request.responseText;
-        }
-        //return JSON.parse(resposeText);
-    return resposeText;
+    return new Promise(function(resolve, reject) {
+        var request = new XMLHttpRequest(); // new HttpRequest instance
+        request.open("POST", url);
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.onload = function() {
+            if (request.status === 200) {
+                resolve(request.responseText);
+            } else {
+                reject(Error(request.statusText));
+            }
+        };
+        request.onerror = function() {
+            reject(Error("Network Error"));
+        };
+        request.send(JSON.stringify(json_object));
+    });
 }
+
 
 function get_elements_by_xpath(xpath) {
     let result = [];
