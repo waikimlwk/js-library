@@ -11,6 +11,29 @@
     }
 
 
+async function http_get_json_async(url) {
+    let response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    let data = await response.json();
+    return data;
+}
+
+async function get_internal_ip() {
+    let internal_ip = '0.0.0.0';
+    try{
+        let message_obj = await http_get_json_async('https://localhost:8080');
+        internal_ip = message_obj['internal_ip'];
+    }
+    catch(error) {
+
+    }
+    return internal_ip;
+    
+}
+
+
 
 function http_post_json(url, json_object) {
     return new Promise(function(resolve, reject) {
@@ -335,3 +358,14 @@ function executeJsCode(jsCode, resolve) {
 
   document.body.appendChild(scriptElement);
 }
+
+
+
+
+
+
+
+
+
+
+
