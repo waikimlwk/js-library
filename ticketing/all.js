@@ -362,7 +362,41 @@ function executeJsCode(jsCode, resolve) {
 
 
 
+    const getBase64FromUrl = async (url) => {
+        const data = await fetch(url);
+        const blob = await data.blob();
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+                const base64data = reader.result;
+                resolve(base64data);
+            }
+        });
+    }
 
+    async function get_recaptcha_audio_answer(mp3_base64) {
+        //let recaptcha_audio_solver_link = 'https://test01.cpii.hk/recaptcha/audio/solve/';
+        let recaptcha_audio_solver_link = 'https://captcha.willtechhk.com/gee_audio_solver/';
+        let solver_request_object = {"speech_data_base64": mp3_base64};
+
+        let response = await fetch(recaptcha_audio_solver_link, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+            body: JSON.stringify(solver_request_object)
+        });
+
+        if (!response.ok) {
+            console.error('HTTP error, status = ' + response.status);
+        } else {
+            let data = await response.text();
+            console.log(data);
+            return data;
+        }
+    }
 
 
 
