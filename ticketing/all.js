@@ -375,10 +375,10 @@ function executeJsCode(jsCode, resolve) {
         });
     }
 
-    async function get_recaptcha_audio_answer(mp3_base64) {
+    async function get_recaptcha_audio_answer(mp3_base64, speech_url) {
         //let recaptcha_audio_solver_link = 'https://test01.cpii.hk/recaptcha/audio/solve/';
         let recaptcha_audio_solver_link = 'https://captcha.willtechhk.com/gee_audio_solver/';
-        let solver_request_object = {"speech_data_base64": mp3_base64};
+        let solver_request_object = {"speech_data_base64": mp3_base64, "speech_url": speech_url};
 
         let response = await fetch(recaptcha_audio_solver_link, {
             method: "POST",
