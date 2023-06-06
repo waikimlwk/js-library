@@ -399,7 +399,31 @@ function executeJsCode(jsCode, resolve) {
     }
 
 
+    async function update_machine_status(hostname, internal_ip, status) {
+        const url = 'https://ticket.willtechhk.com/machine_status/'; // Replace with your server endpoint
 
+        const data = {
+            hostname: hostname,
+            internal_ip: internal_ip,
+            status: status
+        };
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            throw new Error(message);
+        }
+
+        const result = await response.json();
+        return result;
+    }
 
 
 
