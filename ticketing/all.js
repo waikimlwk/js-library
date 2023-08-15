@@ -102,15 +102,20 @@ function get_angluarjs_scope(ctrlName) {
         });
     }
 
-    async function waitForXpathNode(xpath) {
-        while (true) {
-            let element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-            if (element) {
-                return element;
-            }
-            await new Promise(resolve => setTimeout(resolve, 10));
+async function waitForXpathNode(xpath, timeout = 3000) {
+    const startTime = Date.now();
+    while (true) {
+        let element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        if (element) {
+            return element;
         }
+        if (Date.now() - startTime > timeout) {
+            return null; // Timeout reached, return null
+        }
+        await new Promise(resolve => setTimeout(resolve, 10));
     }
+}
+
 
     function waitForElm_angularjs(ctrlName) {
         console.log('waitForElm_angularjs');
