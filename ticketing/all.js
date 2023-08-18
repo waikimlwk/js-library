@@ -432,22 +432,24 @@ function executeJsCode(jsCode, resolve) {
 
 
 
+const event_mouseover = new MouseEvent('mouseover', {
+    view: window,
+    bubbles: true,
+    cancelable: true
+});
 
-// 创建并触发鼠标点击事件
 const event_mousedown = new MouseEvent('mousedown', {
     view: window,
     bubbles: true,
     cancelable: true
 });
 
-// 创建并触发鼠标释放事件
 const event_mouseup = new MouseEvent('mouseup', {
     view: window,
     bubbles: true,
     cancelable: true
 });
 
-// 创建并触发点击事件
 const event_click = new MouseEvent('click', {
     view: window,
     bubbles: true,
