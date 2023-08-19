@@ -431,7 +431,7 @@ function executeJsCode(jsCode, resolve) {
     }
 
 
-
+/*
 const event_mouseover = new MouseEvent('mouseover', {
     view: window,
     bubbles: true,
@@ -455,7 +455,7 @@ const event_click = new MouseEvent('click', {
     bubbles: true,
     cancelable: true
 });
-
+*/
 
 
 
